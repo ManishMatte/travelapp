@@ -3,6 +3,7 @@
 	"ActionResult": {
 		"_Name": "RequestRejectedSuccessMsg"
 	},
+	"OnSuccess": "/TravelApp/Actions/CloseModalPage_Complete.action",
 	"Message": "Request rejected successfully",
 	"OKCaption": "OK"
 }

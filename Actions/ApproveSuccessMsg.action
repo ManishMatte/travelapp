@@ -3,6 +3,7 @@
 	"ActionResult": {
 		"_Name": "ApproveSuccessMsg"
 	},
+	"OnSuccess": "/TravelApp/Actions/CloseModalPage_Complete.action",
 	"Message": "Travel request Approved successfully",
 	"OKCaption": "OK"
 }
