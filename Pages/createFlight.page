@@ -1,0 +1,98 @@
+{
+	"Controls": [
+		{
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable0",
+			"Sections": [
+				{
+					"Visible": true,
+					"EmptySection": {
+						"FooterVisible": false
+					},
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
+					"_Type": "Section.Type.FormCell",
+					"_Name": "SectionFormCell0",
+					"Controls": [
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCFlightNo",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Flight No",
+							"Enabled": true,
+							"IsEditable": true
+						},
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCFlightFrom",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Flight From",
+							"Enabled": true,
+							"IsEditable": true
+						},
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCFlightTo",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Flight To",
+							"Enabled": true,
+							"IsEditable": true
+						},
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCSeatNo",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Seat No",
+							"Enabled": true,
+							"IsEditable": true
+						},
+						{
+							"Value": "Enter Date",
+							"_Type": "Control.Type.FormCell.DatePicker",
+							"_Name": "FCBoardingDate",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Boarding Date",
+							"IsEditable": true,
+							"Mode": "Datetime"
+						},
+						{
+							"_Type": "Control.Type.FormCell.Button",
+							"_Name": "FormCellButton0",
+							"IsVisible": true,
+							"Separator": true,
+							"Title": "Submit",
+							"Alignment": "Center",
+							"ButtonType": "Primary",
+							"Semantic": "Tint",
+							"Image": "sap-icon://save",
+							"ImagePosition": "Leading",
+							"Enabled": true,
+							"OnPress": "/TravelApp/Actions/createFlightDetailsSrv.action"
+						}
+					],
+					"Layout": {
+						"NumberOfColumns": 1
+					}
+				}
+			],
+			"FilterFeedbackBar": {
+				"ShowAllFilters": false,
+				"_Type": "Control.Type.FilterFeedbackBar"
+			}
+		}
+	],
+	"_Type": "Page",
+	"_Name": "createFlight",
+	"Caption": "Flight Details",
+	"PrefersLargeCaption": true
+}

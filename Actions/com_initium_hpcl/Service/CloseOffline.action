@@ -1,0 +1,10 @@
+{
+    "_Type": "Action.Type.OfflineOData.Close",
+    "Service": "/TravelApp/Services/com_initium_hpcl.service",
+    "Force": true,
+    "ActionResult": {
+        "_Name": "close"
+    },
+    "OnSuccess": "/TravelApp/Actions/com_initium_hpcl/Service/CloseOfflineSuccessMessage.action",
+    "OnFailure": "/TravelApp/Actions/com_initium_hpcl/Service/CloseOfflineFailureMessage.action"
+}

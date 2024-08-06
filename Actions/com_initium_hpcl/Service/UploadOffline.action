@@ -1,0 +1,9 @@
+{
+    "Service": "/TravelApp/Services/com_initium_hpcl.service",
+    "_Type": "Action.Type.OfflineOData.Upload",
+    "ActionResult": {
+        "_Name": "sync"
+    },
+    "OnSuccess": "/TravelApp/Actions/com_initium_hpcl/Service/DownloadStartedMessage.action",
+    "OnFailure": "/TravelApp/Actions/com_initium_hpcl/Service/SyncFailureMessage.action"
+}

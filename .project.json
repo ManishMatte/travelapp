@@ -1,0 +1,58 @@
+{
+	"Credential": "cf",
+	"Template": {
+		"Id": "@ext-mdkvsc-npm-dev/generator-mdk",
+		"Name": "Base",
+		"Version": "0.0.1"
+	},
+	"CF": {
+		"Target": "https://api.cf.us10-001.hana.ondemand.com",
+		"Organization": "bf3c8c9b-5bc5-407b-a8e4-3e1ca1a0cb98",
+		"Space": "e946b1b2-530e-4817-8680-992fbe7d4486",
+		"Deploy": {
+			"Description": "",
+			"WebClient": {
+				"Runtime": "production",
+				"URL": "https://mdk-webclient-runtime.cfapps.us10.hana.ondemand.com/runtime/"
+			},
+			"Destination": [
+				{
+					"CF": "com.initium.hpcl",
+					"MDK": "com.initium.hpcl",
+					"URL": ""
+				}
+			],
+			"Name": "ns.TravelApp",
+			"Version": "1.0.0",
+			"AppRouter": "standalone",
+			"Auth": true,
+			"URL": "https://58e0210ftrial-58e0210ftrial-dev-nstravelapp-approuter.cfapps.us10-001.hana.ondemand.com/nsTravelApp"
+		}
+	},
+	"MobileService": {
+		"Type": "standard",
+		"AdminAPI": "https://mobile-service-cockpit-api.cfapps.us10.hana.ondemand.com/cockpit/v1/org/bf3c8c9b-5bc5-407b-a8e4-3e1ca1a0cb98/space/e946b1b2-530e-4817-8680-992fbe7d4486",
+		"AppId": "com.initium.hpcl",
+		"Destination": [
+			"com.initium.hpcl"
+		]
+	},
+	"Onboarding": {
+		"Schema": "sapmobilesvcs",
+		"TimeZone": "UTC",
+		"URL": "sapmobilesvcs://?AppId=com.initium.hpcl&ClientId=f9471c0e-1daf-42ce-9343-9ab8f7317eab&ServerUrl=https://58e0210ftrial-dev-com-initium-hpcl.cfapps.us10-001.hana.ondemand.com&SapCloudPlatformEndpoint=https://58e0210ftrial-dev-com-initium-hpcl.cfapps.us10-001.hana.ondemand.com&AuthorizationEndpointUrl=https://58e0210ftrial-dev-com-initium-hpcl.cfapps.us10-001.hana.ondemand.com/oauth2/api/v1/authorize&RedirectUrl=https://58e0210ftrial-dev-com-initium-hpcl.cfapps.us10-001.hana.ondemand.com&TokenUrl=https://58e0210ftrial-dev-com-initium-hpcl.cfapps.us10-001.hana.ondemand.com/oauth2/api/v1/token&multiUser=false"
+	},
+	"LCAP": {
+		"FullName": "",
+		"Service": [],
+		"sourceTemplate": {
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		}
+	},
+	"Build": {
+		"SourceMap": false,
+		"TSTarget": "es6",
+		"WMF": true
+	}
+}

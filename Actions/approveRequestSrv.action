@@ -1,0 +1,17 @@
+{
+	"_Type": "Action.Type.ODataService.UpdateEntity",
+	"ActionResult": {
+		"_Name": "approveRequestSrv"
+	},
+	"OnFailure": "/TravelApp/Actions/ApproveErrorMsg.action",
+	"OnSuccess": "/TravelApp/Actions/ApproveSuccessMsg.action",
+	"Target": {
+		"Service": "/TravelApp/Services/com_initium_hpcl.service",
+		"EntitySet": "TravelRequest",
+		"ReadLink": "{@odata.readLink}"
+	},
+	"Properties": {
+		"ID": "{ID}",
+		"Status": "Approved"
+	}
+}

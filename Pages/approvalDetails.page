@@ -1,0 +1,82 @@
+{
+	"Controls": [
+		{
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable0",
+			"Sections": [
+				{
+					"_Type": "Section.Type.ObjectHeader",
+					"_Name": "SectionObjectHeader0",
+					"ObjectHeader": {
+						"Subhead": "{TravelType}",
+						"StatusText": "{Status}",
+						"DetailImage": "sap-icon://information",
+						"DetailImageIsCircular": false,
+						"HeadlineText": "{TripNumber}",
+						"StatusPosition": "Stacked",
+						"StatusImagePosition": "Leading",
+						"SubstatusImagePosition": "Leading"
+					},
+					"Visible": true
+				}
+			],
+			"FilterFeedbackBar": {
+				"ShowAllFilters": false,
+				"_Type": "Control.Type.FilterFeedbackBar"
+			}
+		},
+		{
+			"_Type": "Control.Type.Tabs",
+			"_Name": "Tabs0",
+			"Items": [
+				{
+					"_Type": "Control.Type.TabItem",
+					"Caption": "Travel Details",
+					"PageToOpen": "/TravelApp/Pages/travelDetailsTab.page",
+					"_Name": "TabItem0"
+				},
+				{
+					"_Type": "Control.Type.TabItem",
+					"Caption": "Boarding Details",
+					"PageToOpen": "/TravelApp/Pages/boardingDetailsTab.page",
+					"_Name": "TabItem1"
+				}
+			],
+			"Position": "Top",
+			"TabStripType": "Normal",
+			"SwipeEnabled": true
+		}
+	],
+	"_Type": "Page",
+	"_Name": "approvalDetails",
+	"Caption": "Approval Details",
+	"FioriToolbar": {
+		"_Type": "Control.Type.FioriToolbar",
+		"_Name": "FioriToolbar0",
+		"Visible": "/TravelApp/Rules/approveRectedVisibility.js",
+		"Items": [
+			{
+				"_Type": "FioriToolbarItem.Type.Button",
+				"_Name": "ToolbarItem1",
+				"Title": "Reject",
+				"OnPress": "/TravelApp/Actions/rejectRequestSrv.action",
+				"Image": "sap-icon://employee-rejections",
+				"Enabled": true,
+				"ButtonType": "Primary",
+				"Semantic": "Negative",
+				"ImagePosition": "Leading"
+			},
+			{
+				"_Type": "FioriToolbarItem.Type.Button",
+				"_Name": "ToolbarItem0",
+				"Title": "Approve",
+				"OnPress": "/TravelApp/Actions/approveRequestSrv.action",
+				"Image": "sap-icon://approvals",
+				"Enabled": true,
+				"ButtonType": "Primary",
+				"Semantic": "Tint",
+				"ImagePosition": "Leading"
+			}
+		]
+	}
+}

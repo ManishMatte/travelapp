@@ -1,0 +1,21 @@
+{
+	"_Type": "Action.Type.ODataService.UpdateEntity",
+	"ActionResult": {
+		"_Name": "updateTravelRequestSrv"
+	},
+	"OnFailure": "/TravelApp/Actions/updateTravelDetailsErrorMsg.action",
+	"OnSuccess": "/TravelApp/Actions/CloseModalPage_Complete.action",
+	"Target": {
+		"Service": "/TravelApp/Services/com_initium_hpcl.service",
+		"EntitySet": "TravelRequest",
+		"ReadLink": "{@odata.readLink}"
+	},
+	"Properties": {
+		"ID": "{ID}",
+		"TravelType": "#Control:FCTravelType/#Value",
+		"Destination": "#Control:FCDestination/#Value",
+		"StartDate": "#Control:FCStartDate/#Value",
+		"EndDate": "#Control:FCEndDate/#Value",
+		"SubActivity": "#Control:FCSubActivity/#Value"
+	}
+}

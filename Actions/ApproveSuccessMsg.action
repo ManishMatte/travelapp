@@ -1,0 +1,8 @@
+{
+	"_Type": "Action.Type.Message",
+	"ActionResult": {
+		"_Name": "ApproveSuccessMsg"
+	},
+	"Message": "Travel request Approved successfully",
+	"OKCaption": "OK"
+}

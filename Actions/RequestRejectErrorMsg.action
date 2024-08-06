@@ -1,0 +1,7 @@
+{
+	"_Type": "Action.Type.Message",
+	"ActionResult": {
+		"_Name": "RequestRejectErrorMsg"
+	},
+	"Message": "Request rejection failed - {#ActionResults:rejectRequestSrv/error}"
+}

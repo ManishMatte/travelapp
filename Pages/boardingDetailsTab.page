@@ -1,0 +1,12 @@
+{
+	"_Type": "Page",
+	"_Name": "boardingDetailsTab",
+	"Controls": [
+		{
+			"_Name": "SectionedTable0",
+			"_Type": "Control.Type.SectionedTable"
+		}
+	],
+	"Caption": "boardingDetailsTab",
+	"PrefersLargeCaption": true
+}

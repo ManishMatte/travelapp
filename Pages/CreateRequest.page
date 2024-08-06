@@ -1,0 +1,133 @@
+{
+	"Controls": [
+		{
+			"FilterFeedbackBar": {
+				"ShowAllFilters": false,
+				"_Type": "Control.Type.FilterFeedbackBar"
+			},
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable0",
+			"Sections": [
+				{
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
+					"Controls": [
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCTripNumber",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Trip Number",
+							"PlaceHolder": "Enter Value",
+							"Enabled": true,
+							"IsEditable": true
+						},
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCTravelType",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Travel Type",
+							"PlaceHolder": "Enter Vaue",
+							"Enabled": true,
+							"IsEditable": true
+						},
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCStatus",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Status",
+							"PlaceHolder": "Enter Value",
+							"Enabled": true,
+							"IsEditable": true
+						},
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCDestination",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Destination",
+							"PlaceHolder": "Enter Value",
+							"Enabled": true,
+							"IsEditable": true
+						},
+						{
+							"Value": "Enter Date",
+							"_Type": "Control.Type.FormCell.DatePicker",
+							"_Name": "FCStartDate",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Start Date",
+							"IsEditable": true,
+							"Mode": "Datetime"
+						},
+						{
+							"Value": "Enter Date",
+							"_Type": "Control.Type.FormCell.DatePicker",
+							"_Name": "FCEndDate",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "End Date",
+							"IsEditable": true,
+							"Mode": "Datetime"
+						},
+						{
+							"_Type": "Control.Type.FormCell.SimpleProperty",
+							"_Name": "FCSubActivity",
+							"IsVisible": true,
+							"Separator": true,
+							"Caption": "Sub Activity",
+							"PlaceHolder": "Enter Value",
+							"Enabled": true,
+							"IsEditable": true
+						}
+					],
+					"Layout": {
+						"NumberOfColumns": 1
+					},
+					"Visible": true,
+					"EmptySection": {
+						"FooterVisible": false
+					},
+					"_Type": "Section.Type.FormCell",
+					"_Name": "SectionFormCell0"
+				}
+			]
+		}
+	],
+	"_Type": "Page",
+	"_Name": "CreateRequest",
+	"Caption": "CreateRequest",
+	"PrefersLargeCaption": true,
+	"ActionBar": {
+		"Items": [
+			{
+				"_Name": "ActionBarItem1",
+				"Caption": "Item",
+				"SystemItem": "Cancel",
+				"Icon": "sap-icon://cancel",
+				"Position": "Left",
+				"IsIconCircular": false,
+				"Visible": true,
+				"OnPress": "/TravelApp/Actions/CloseModalPage_Cancel.action"
+			},
+			{
+				"_Name": "ActionBarItem0",
+				"Caption": "Save",
+				"SystemItem": "Save",
+				"Icon": "sap-icon://save",
+				"Position": "Right",
+				"IsIconCircular": false,
+				"Visible": true,
+				"OnPress": "/TravelApp/Actions/CreateTravelRequestSrv.action"
+			}
+		],
+		"_Name": "ActionBar1"
+	}
+}

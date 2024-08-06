@@ -1,0 +1,7 @@
+{
+	"_Type": "Action.Type.Navigation",
+	"ActionResult": {
+		"_Name": "NavToHotelBookingsPage"
+	},
+	"PageToOpen": "/TravelApp/Pages/createHotel.page"
+}

@@ -1,0 +1,90 @@
+{
+	"Controls": [
+		{
+			"FilterFeedbackBar": {
+				"ShowAllFilters": false,
+				"_Type": "Control.Type.FilterFeedbackBar"
+			},
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable0",
+			"Sections": [
+				{
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
+					"Row": {
+						"Items": [
+							{
+								"BindTo": "Headline",
+								"NumberOfLines": 1,
+								"Text": "{TripNumber}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Subheadline",
+								"NumberOfLines": 1,
+								"Text": "{TravelType}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Status",
+								"LineBreakMode": "WordWrapping",
+								"NumberOfLines": 1,
+								"Text": "{Status}",
+								"TextAlignment": "Left"
+							}
+						],
+						"Layout": {
+							"ColumnWidthPercentage": [
+								0.1,
+								0.1,
+								0.1
+							]
+						},
+						"AccessoryType": "None",
+						"OnPress": "/TravelApp/Actions/NavToTravelrequestDetailsPage.action"
+					},
+					"_Type": "Section.Type.GridTable",
+					"Target": {
+						"Service": "/TravelApp/Services/com_initium_hpcl.service",
+						"EntitySet": "TravelRequest",
+						"ReadLink": "{@odata.readLink}",
+						"ServerSidePaging": true
+					},
+					"_Name": "SectionGridTable0",
+					"Visible": true,
+					"EmptySection": {
+						"FooterVisible": false
+					},
+					"DataPaging": {
+						"ShowLoadingIndicator": true,
+						"LoadingIndicatorText": "Loading",
+						"PageSize": 50
+					}
+				}
+			]
+		}
+	],
+	"_Type": "Page",
+	"_Name": "travelRequest",
+	"Caption": "Travel Requests",
+	"PrefersLargeCaption": true,
+	"ActionBar": {
+		"Items": [
+			{
+				"_Name": "ActionBarItem0",
+				"Caption": "Add",
+				"SystemItem": "Add",
+				"Position": "Right",
+				"IsIconCircular": false,
+				"Visible": true,
+				"OnPress": "/TravelApp/Actions/NavtoCreateRequestPage.action"
+			}
+		],
+		"_Name": "ActionBar1"
+	}
+}

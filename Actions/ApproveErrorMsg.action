@@ -1,0 +1,8 @@
+{
+	"_Type": "Action.Type.Message",
+	"ActionResult": {
+		"_Name": "ApproveErrorMsg"
+	},
+	"Message": "Failed to approve with error - {#ActionResults:approveRequestSrv/error}",
+	"OKCaption": "OK"
+}

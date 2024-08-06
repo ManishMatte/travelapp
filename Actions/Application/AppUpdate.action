@@ -1,0 +1,8 @@
+{
+    "_Type": "Action.Type.ApplicationUpdate",
+    "ActionResult": {
+        "_Name": "AppUpdate"
+    },
+    "OnFailure": "/TravelApp/Rules/Application/AppUpdateFailure.js",
+    "OnSuccess": "/TravelApp/Rules/Application/AppUpdateSuccess.js"
+}

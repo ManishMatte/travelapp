@@ -1,0 +1,12 @@
+{
+	"_Type": "Page",
+	"_Name": "travelDetailsTab",
+	"Controls": [
+		{
+			"_Name": "SectionedTable0",
+			"_Type": "Control.Type.SectionedTable"
+		}
+	],
+	"Caption": "travelDetailsTab",
+	"PrefersLargeCaption": true
+}

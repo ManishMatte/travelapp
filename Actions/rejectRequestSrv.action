@@ -1,0 +1,17 @@
+{
+	"_Type": "Action.Type.ODataService.UpdateEntity",
+	"ActionResult": {
+		"_Name": "rejectRequestSrv"
+	},
+	"OnFailure": "/TravelApp/Actions/RequestRejectErrorMsg.action",
+	"OnSuccess": "/TravelApp/Actions/RequestRejectedSuccessMsg.action",
+	"Target": {
+		"Service": "/TravelApp/Services/com_initium_hpcl.service",
+		"EntitySet": "TravelRequest",
+		"ReadLink": "{@odata.readLink}"
+	},
+	"Properties": {
+		"ID": "{ID}",
+		"Status": "Rejected"
+	}
+}

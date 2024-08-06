@@ -1,0 +1,113 @@
+{
+	"Controls": [
+		{
+			"FilterFeedbackBar": {
+				"ShowAllFilters": false,
+				"_Type": "Control.Type.FilterFeedbackBar"
+			},
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable0",
+			"Sections": [
+				{
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
+					"KeyAndValues": [
+						{
+							"Value": "{TripNumber}",
+							"_Name": "KeyValue0",
+							"KeyName": "Trip No.",
+							"Visible": true
+						},
+						{
+							"Value": "{TravelType}",
+							"_Name": "KeyValue4",
+							"KeyName": "Travel Type",
+							"Visible": true
+						},
+						{
+							"Value": "{Status}",
+							"_Name": "KeyValue1",
+							"KeyName": "Status",
+							"Visible": true
+						},
+						{
+							"Value": "{Destination}",
+							"_Name": "KeyValue6",
+							"KeyName": "Destination",
+							"Visible": true
+						},
+						{
+							"Value": "{StartDate}",
+							"_Name": "KeyValue7",
+							"KeyName": "Start Date",
+							"Visible": true
+						},
+						{
+							"Value": "{EndDate}",
+							"_Name": "KeyValue3",
+							"KeyName": "End Date",
+							"Visible": true
+						},
+						{
+							"Value": "{SubActivity}",
+							"_Name": "KeyValue5",
+							"KeyName": "Sub Activity",
+							"Visible": true
+						}
+					],
+					"MaxItemCount": 1,
+					"_Type": "Section.Type.KeyValue",
+					"_Name": "SectionKeyValue0",
+					"Visible": true,
+					"EmptySection": {
+						"FooterVisible": false
+					},
+					"Layout": {
+						"NumberOfColumns": 2
+					}
+				}
+			]
+		}
+	],
+	"_Type": "Page",
+	"_Name": "CreateRequest",
+	"Caption": "CreateRequest",
+	"PrefersLargeCaption": true,
+	"ActionBar": {
+		"Items": [
+			{
+				"_Name": "ActionBarItem0",
+				"Caption": "Save",
+				"SystemItem": "Edit",
+				"Icon": "sap-icon://save",
+				"Position": "Right",
+				"IsIconCircular": false,
+				"Visible": true,
+				"OnPress": "/TravelApp/Actions/navToUpdateTravelRequestDetailsPage.action"
+			}
+		],
+		"_Name": "ActionBar1"
+	},
+	"FioriToolbar": {
+		"_Type": "Control.Type.FioriToolbar",
+		"_Name": "FioriToolbar0",
+		"Items": [
+			{
+				"_Type": "FioriToolbarItem.Type.Button",
+				"_Name": "ToolbarItem0",
+				"Visible": "/TravelApp/Rules/addExpenseButtonVisibility.js",
+				"Title": "Add Expense",
+				"OnPress": "/TravelApp/Actions/NavToAddExpensePage.action",
+				"Enabled": true,
+				"ButtonType": "Primary",
+				"Semantic": "Tint",
+				"ImagePosition": "Leading"
+			}
+		]
+	}
+}

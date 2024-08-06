@@ -1,0 +1,21 @@
+{
+	"_Type": "Action.Type.ODataService.CreateEntity",
+	"ActionResult": {
+		"_Name": "CreateTravelRequestSrv"
+	},
+	"OnFailure": "/TravelApp/Actions/CreateTravelReqEntityFailureM.action",
+	"OnSuccess": "/TravelApp/Actions/CloseModalPage_Complete.action",
+	"Target": {
+		"Service": "/TravelApp/Services/com_initium_hpcl.service",
+		"EntitySet": "TravelRequest"
+	},
+	"Properties": {
+		"TripNumber": "#Control:FCTripNumber/#Value",
+		"TravelType": "#Control:FCTravelType/#Value",
+		"Destination": "#Control:FCDestination/#Value",
+		"Status": "#Control:FCStatus/#Value",
+		"StartDate": "#Control:FCStartDate/#Value",
+		"EndDate": "#Control:FCEndDate/#Value",
+		"SubActivity": "#Control:FCSubActivity/#Value"
+	}
+}

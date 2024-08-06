@@ -1,0 +1,8 @@
+{
+	"_Type": "Action.Type.Navigation",
+	"ActionResult": {
+		"_Name": "NavtoCreateRequestPage"
+	},
+	"PageToOpen": "/TravelApp/Pages/CreateRequest.page",
+	"ModalPage": true
+}

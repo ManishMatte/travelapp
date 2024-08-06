@@ -1,0 +1,19 @@
+{
+	"_Type": "Action.Type.ODataService.CreateEntity",
+	"ActionResult": {
+		"_Name": "createFlightDetailsSrv"
+	},
+	"OnSuccess": "/TravelApp/Actions/CloseModalPage_Complete.action",
+	"Target": {
+		"Service": "/TravelApp/Services/com_initium_hpcl.service",
+		"EntitySet": "BoardingPass"
+	},
+	"Properties": {
+		"flightNo": "#Control:FCFlightNo/#Value",
+		"flightFrom": "#Control:FCFlightFrom/#Value",
+		"flightTo": "#Control:FCFlightTo/#Value",
+		"seatNo": "#Control:FCSeatNo/#Value",
+		"boardingDate": "#Control:FCBoardingDate/#Value",
+		"req_ID": "{ID}"
+	}
+}

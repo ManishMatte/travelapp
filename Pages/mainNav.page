@@ -1,0 +1,41 @@
+{
+	"Controls": [
+		{
+			"_Type": "Control.Type.BottomNavigation",
+			"_Name": "BottomNavigation0",
+			"Items": [
+				{
+					"_Type": "Control.Type.TabItem",
+					"Caption": "Travel Requests",
+					"Image": "sap-icon://travel-request",
+					"PageToOpen": "/TravelApp/Pages/travelRequest.page",
+					"_Name": "TabItem0"
+				},
+				{
+					"_Type": "Control.Type.TabItem",
+					"Caption": "Approvals",
+					"Image": "sap-icon://approvals",
+					"PageToOpen": "/TravelApp/Pages/Approvals.page",
+					"_Name": "TabItem1"
+				}
+			]
+		}
+	],
+	"_Type": "Page",
+	"_Name": "mainNav",
+	"Caption": "Business Travel",
+	"ActionBar": {
+		"Items": [
+			{
+				"_Name": "ActionBarItem0",
+				"Caption": "Item",
+				"Icon": "sap-icon://customer",
+				"Position": "Right",
+				"IsIconCircular": false,
+				"Visible": true,
+				"OnPress": "/TravelApp/Actions/Application/UserMenuPopover.action"
+			}
+		],
+		"_Name": "ActionBar1"
+	}
+}

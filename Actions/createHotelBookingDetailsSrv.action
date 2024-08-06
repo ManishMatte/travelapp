@@ -1,0 +1,22 @@
+{
+	"_Type": "Action.Type.ODataService.CreateEntity",
+	"ActionResult": {
+		"_Name": "createHotelBookingDetailsSrv"
+	},
+	"OnFailure": "/TravelApp/Actions/createHotelFailed.action",
+	"OnSuccess": "/TravelApp/Actions/CloseModalPage_Complete.action",
+	"Target": {
+		"Service": "/TravelApp/Services/com_initium_hpcl.service",
+		"EntitySet": "HotelBooking"
+	},
+	"Properties": {
+		"gstState": "#Control:FCGstState/#SelectedValue",
+		"name": "#Control:FCHotelName/#Value",
+		"email": "#Control:FCHotelEmail/#Value",
+		"roomType": "#Control:FCRoomType/#Value",
+		"noofGuest": "#Control:FCNoOfGuest/#Value",
+		"checkIn": "#Control:FCCheckIn/#Value",
+		"checkOut": "#Control:FCCheckOut/#Value",
+		"req_ID": "{ID}"
+	}
+}

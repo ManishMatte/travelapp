@@ -1,0 +1,233 @@
+{
+	"Controls": [
+		{
+			"FilterFeedbackBar": {
+				"ShowAllFilters": false,
+				"_Type": "Control.Type.FilterFeedbackBar"
+			},
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable0",
+			"Sections": [
+				{
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
+					"Controls": [
+						{
+							"_Type": "Control.Type.FormCell.Button",
+							"_Name": "FormCellButton0",
+							"IsVisible": true,
+							"Separator": false,
+							"Title": "Flight Details",
+							"Alignment": "Left",
+							"ButtonType": "Secondary",
+							"Semantic": "Normal",
+							"ImagePosition": "Leading",
+							"Enabled": true
+						}
+					],
+					"Layout": {
+						"NumberOfColumns": 1
+					},
+					"Visible": true,
+					"EmptySection": {
+						"FooterVisible": false
+					},
+					"_Type": "Section.Type.FormCell",
+					"_Name": "SectionFormCell0"
+				},
+				{
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
+					"Row": {
+						"Items": [
+							{
+								"BindTo": "Headline",
+								"NumberOfLines": 1,
+								"Text": "{flightNo}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Subheadline",
+								"NumberOfLines": 1,
+								"Text": "{flightFrom}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Footnote",
+								"NumberOfLines": 1,
+								"Text": "{flightTo}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Status",
+								"NumberOfLines": 1,
+								"Text": "{boardingDate}",
+								"TextAlignment": "Left"
+							}
+						],
+						"Layout": {
+							"ColumnWidthPercentage": [
+								0.1,
+								0.1,
+								0.1,
+								0.1
+							]
+						},
+						"AccessoryType": "None"
+					},
+					"_Type": "Section.Type.GridTable",
+					"Target": {
+						"Service": "/TravelApp/Services/com_initium_hpcl.service",
+						"EntitySet": "BoardingPass"
+					},
+					"_Name": "SectionGridTable0",
+					"Visible": true,
+					"EmptySection": {
+						"FooterVisible": false
+					},
+					"DataPaging": {
+						"ShowLoadingIndicator": true,
+						"LoadingIndicatorText": "Please Wait",
+						"PageSize": 50
+					}
+				},
+				{
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
+					"Controls": [
+						{
+							"_Type": "Control.Type.FormCell.Button",
+							"_Name": "FormCellButton1",
+							"IsVisible": true,
+							"Separator": false,
+							"Title": "Hotel Details",
+							"Alignment": "Left",
+							"ButtonType": "Secondary",
+							"Semantic": "Normal",
+							"ImagePosition": "Leading",
+							"Enabled": true
+						}
+					],
+					"Layout": {
+						"NumberOfColumns": 1
+					},
+					"Visible": true,
+					"EmptySection": {
+						"FooterVisible": false
+					},
+					"_Type": "Section.Type.FormCell",
+					"_Name": "SectionFormCell1"
+				},
+				{
+					"Separators": {
+						"TopSectionSeparator": false,
+						"BottomSectionSeparator": true,
+						"HeaderSeparator": true,
+						"FooterSeparator": true,
+						"ControlSeparator": true
+					},
+					"Row": {
+						"Items": [
+							{
+								"BindTo": "Headline",
+								"NumberOfLines": 1,
+								"Text": "{name}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Subheadline",
+								"NumberOfLines": 1,
+								"Text": "{roomType}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Footnote",
+								"NumberOfLines": 1,
+								"Text": "{checkIn}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Status",
+								"NumberOfLines": 1,
+								"Text": "{checkOut}",
+								"TextAlignment": "Left"
+							}
+						],
+						"Layout": {
+							"ColumnWidthPercentage": [
+								0.1,
+								0.1,
+								0.1,
+								0.1
+							]
+						},
+						"AccessoryType": "None"
+					},
+					"_Type": "Section.Type.GridTable",
+					"Target": {
+						"Service": "/TravelApp/Services/com_initium_hpcl.service",
+						"EntitySet": "HotelBooking"
+					},
+					"_Name": "SectionGridTable1",
+					"Visible": true,
+					"EmptySection": {
+						"FooterVisible": false
+					},
+					"DataPaging": {
+						"ShowLoadingIndicator": false,
+						"PageSize": 50
+					}
+				}
+			]
+		}
+	],
+	"_Type": "Page",
+	"_Name": "addExpenses",
+	"Caption": "Add Expenses",
+	"PrefersLargeCaption": true,
+	"FioriToolbar": {
+		"_Type": "Control.Type.FioriToolbar",
+		"_Name": "FioriToolbar0",
+		"Items": [
+			{
+				"_Type": "FioriToolbarItem.Type.Button",
+				"_Name": "ToolbarItem0",
+				"Visible": true,
+				"Title": "Flight",
+				"OnPress": "/TravelApp/Actions/NavToCreateFlightDetails.action",
+				"Image": "sap-icon://flight",
+				"Enabled": true,
+				"ButtonType": "Primary",
+				"Semantic": "Tint",
+				"ImagePosition": "Leading"
+			},
+			{
+				"_Type": "FioriToolbarItem.Type.Button",
+				"_Name": "ToolbarItem1",
+				"Visible": true,
+				"Title": "Hotel",
+				"OnPress": "/TravelApp/Actions/NavToHotelBookingsPage.action",
+				"Image": "sap-icon://home",
+				"Enabled": true,
+				"ButtonType": "Primary",
+				"Semantic": "Tint",
+				"ImagePosition": "Leading"
+			}
+		]
+	}
+}

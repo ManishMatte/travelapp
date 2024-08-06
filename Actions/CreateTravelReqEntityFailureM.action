@@ -1,0 +1,9 @@
+{
+	"_Type": "Action.Type.Message",
+	"ActionResult": {
+		"_Name": "CreateTravelReqEntityFailureM"
+	},
+	"Message": "#ActionResults:CreateTravelRequestSrv/error",
+	"Title": "Create Travel Request",
+	"OKCaption": "OK"
+}

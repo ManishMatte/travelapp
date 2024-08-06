@@ -1,0 +1,14 @@
+{
+    "Service": "/TravelApp/Services/com_initium_hpcl.service",
+    "DefiningRequests": [{
+        "Name": "TravelRequest",
+        "Query": "TravelRequest"
+    }],
+    "_Type": "Action.Type.ODataService.Initialize",
+    "ShowActivityIndicator": true,
+    "ActivityIndicatorText": "Downloading...",
+    "ActionResult": {
+        "_Name": "init"
+    },
+    "OnFailure": "/TravelApp/Actions/com_initium_hpcl/Service/InitializeOfflineFailureMessage.action"
+}
