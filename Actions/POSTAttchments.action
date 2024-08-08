@@ -1,0 +1,16 @@
+{
+	"_Type": "Action.Type.RestService.SendRequest",
+	"ActionResult": {
+		"_Name": "POSTAttchments"
+	},
+	"Target": {
+		"Service": "/TravelApp/Services/document_information_extraction.service",
+		"Path": "/document/jobs",
+		"OutputPath": "/id",
+		"RequestProperties": {
+			"Method": "POST",
+			"Body": "/TravelApp/Rules/fetchAttachmentData.js",
+			"FetchCSRF": false
+		}
+	}
+}

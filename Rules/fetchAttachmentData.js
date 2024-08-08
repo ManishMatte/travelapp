@@ -4,7 +4,7 @@
  */
 export default function fetchAttachmentData(clientAPI) {
 
-    const value = clientAPI.getPageProxy().getControl("SectionedTable0").getControl('FCAttachment').getValue();
+    const value = clientAPI.getPageProxy().getControl("SectionedTable01").getControl('FCAttach').getValue();
     if (!value.length) return;
 
     const formData = new FormData(), blob = new Blob([value[0].content], { type: value[0].contentType }),

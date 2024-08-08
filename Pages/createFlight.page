@@ -65,6 +65,20 @@
 						},
 						{
 							"_Type": "Control.Type.FormCell.Button",
+							"_Name": "FormCellButton1",
+							"IsVisible": true,
+							"Separator": true,
+							"Title": "Add Attachments",
+							"Alignment": "Center",
+							"ButtonType": "Primary",
+							"Semantic": "Tint",
+							"Image": "sap-icon://attachment",
+							"ImagePosition": "Leading",
+							"Enabled": true,
+							"OnPress": "/TravelApp/Actions/NavToAddAttachments.action"
+						},
+						{
+							"_Type": "Control.Type.FormCell.Button",
 							"_Name": "FormCellButton0",
 							"IsVisible": true,
 							"Separator": true,
