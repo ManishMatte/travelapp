@@ -7,7 +7,7 @@
 				{
 					"_Type": "Section.Type.GridTable",
 					"Target": {
-						"Service": "/TravelApp/Services/com_initium_hpcl.service",
+						"Service": "/TravelApp/Services/TravelApp.service",
 						"EntitySet": "TravelRequest"
 					},
 					"_Name": "SectionGridTable0",

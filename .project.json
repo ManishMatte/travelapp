@@ -17,8 +17,18 @@
 			},
 			"Destination": [
 				{
+					"CF": "TravelApp",
+					"MDK": "TravelApp",
+					"URL": ""
+				},
+				{
 					"CF": "com.initium.hpcl",
 					"MDK": "com.initium.hpcl",
+					"URL": ""
+				},
+				{
+					"CF": "document_information_extraction",
+					"MDK": "document_information_extraction",
 					"URL": ""
 				}
 			],
@@ -34,7 +44,9 @@
 		"AdminAPI": "https://mobile-service-cockpit-api.cfapps.us10.hana.ondemand.com/cockpit/v1/org/bf3c8c9b-5bc5-407b-a8e4-3e1ca1a0cb98/space/e946b1b2-530e-4817-8680-992fbe7d4486",
 		"AppId": "com.initium.hpcl",
 		"Destination": [
-			"com.initium.hpcl"
+			"com.initium.hpcl",
+			"document_information_extraction",
+			"TravelApp"
 		]
 	},
 	"Onboarding": {

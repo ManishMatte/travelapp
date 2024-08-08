@@ -1,4 +1,14 @@
-/******/ (() => { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(this, () => {
+return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./build.definitions/TravelApp/i18n/i18n.properties":
@@ -272,6 +282,30 @@ function ResetAppSettingsAndLogout(clientAPI) {
 
 /***/ }),
 
+/***/ "./build.definitions/TravelApp/Rules/AttachmentDynamicPath.js":
+/*!********************************************************************!*\
+  !*** ./build.definitions/TravelApp/Rules/AttachmentDynamicPath.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ AttachmentDynamicPath)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function AttachmentDynamicPath(clientAPI) {
+
+    let ID = clientAPI.getBindingObject().attachmentId;
+    return "/document/jobs/"+ID;
+}
+
+
+/***/ }),
+
 /***/ "./build.definitions/TravelApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js":
 /*!******************************************************************************************!*\
   !*** ./build.definitions/TravelApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js ***!
@@ -288,7 +322,7 @@ __webpack_require__.r(__webpack_exports__);
  * @param {IClientAPI} context
  */
 function CheckForSyncError(context) {
-    context.count('/TravelApp/Services/com_initium_hpcl.service', 'ErrorArchive', '').then(errorCount => {
+    context.count('/TravelApp/Services/TravelApp.service', 'ErrorArchive', '').then(errorCount => {
         if (errorCount > 0) {
             return context.getPageProxy().executeAction('/TravelApp/Actions/ErrorArchive/ErrorArchive_SyncFailure.action').then(function() {
                 return Promise.reject(false);
@@ -669,6 +703,110 @@ function approveRectedVisibility(clientAPI) {
 
 /***/ }),
 
+/***/ "./build.definitions/TravelApp/Rules/createFlightDetails.js":
+/*!******************************************************************!*\
+  !*** ./build.definitions/TravelApp/Rules/createFlightDetails.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ createFlightDetails)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+// export default function createFlightDetails(clientAPI) {
+
+//     // const pageProxy = clientAPI.getPageProxy().getPageProxy();
+//     // const attachmentControl = pageProxy.getControl("SectionedTable0").getControl("FCAttachment");
+//     // const attachmentControl = clientAPI.getControl("FCAttachment");
+    
+//     // const value = clientAPI.getPageProxy().getControl("SectionedTable0").getControl('FCAttachment').getValue();
+//     // if (!value.length) return;
+
+//     // const formData = new FormData(), blob = new Blob([value[0].content], { type: value[0].contentType }),
+//     //     file = new File([blob], value[0].urlString, { type: value[0].contentType });
+    
+//     // formData.append("file", file);
+//     // formData.append("headers", file);
+//     // formData.append("options", JSON.stringify({
+//     //     "schemaId": "cf8cc8a9-1eee-42d9-9a3e-507a61baac23",
+//     //     "clientId": "default",
+//     //     "documentType": "invoice",
+//     //     "receivedDate": new Date().toISOString().split("T")[0]
+//     // }));
+
+//     // return fetch("/nsTravelApp/document_information_extraction/document/jobs", {
+//     //     method: 'POST',
+//     //     body: formData
+//     // }).then(p => p.json()).then((res)=>{return res.id});
+
+// }
+
+function createFlightDetails(clientAPI) {
+
+    // Store formData in clientAPI so the action can access it
+    // clientAPI.clientData.formData = formData;
+
+    // Execute the action
+    return clientAPI.executeAction('/TravelApp/Actions/postAttachmentData.action')
+        .then(result => {
+            // Process the action result, e.g., show a success message
+           return result.data;
+        })
+        .catch(error => {
+            // Handle the error, e.g., show an error message
+            console.error('Error submitting form:', error);
+            return null;
+        });
+}
+
+
+
+/***/ }),
+
+/***/ "./build.definitions/TravelApp/Rules/fetchAttachmentData.js":
+/*!******************************************************************!*\
+  !*** ./build.definitions/TravelApp/Rules/fetchAttachmentData.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ fetchAttachmentData)
+/* harmony export */ });
+/**
+ * Describe this function...
+ * @param {IClientAPI} clientAPI
+ */
+function fetchAttachmentData(clientAPI) {
+
+    const value = clientAPI.getPageProxy().getControl("SectionedTable0").getControl('FCAttachment').getValue();
+    if (!value.length) return;
+
+    const formData = new FormData(), blob = new Blob([value[0].content], { type: value[0].contentType }),
+        file = new File([blob], value[0].urlString, { type: value[0].contentType });
+    
+    formData.append("file", file);
+    formData.append("headers", file);
+    formData.append("options", JSON.stringify({
+        "schemaId": "cf8cc8a9-1eee-42d9-9a3e-507a61baac23",
+        "clientId": "default",
+        "documentType": "invoice",
+        "receivedDate": new Date().toISOString().split("T")[0]
+    }));
+
+    return formData;
+
+}
+
+
+/***/ }),
+
 /***/ "./build.definitions/application-index.js":
 /*!************************************************!*\
   !*** ./build.definitions/application-index.js ***!
@@ -722,11 +860,13 @@ let travelapp_actions_logging_uploadlog_action = __webpack_require__(/*! ./Trave
 let travelapp_actions_logging_uploadlogprogress_action = __webpack_require__(/*! ./TravelApp/Actions/Logging/UploadLogProgress.action */ "./build.definitions/TravelApp/Actions/Logging/UploadLogProgress.action")
 let travelapp_actions_navtoaddexpensepage_action = __webpack_require__(/*! ./TravelApp/Actions/NavToAddExpensePage.action */ "./build.definitions/TravelApp/Actions/NavToAddExpensePage.action")
 let travelapp_actions_navtoapprovaldetailspage_action = __webpack_require__(/*! ./TravelApp/Actions/navToApprovalDetailsPage.action */ "./build.definitions/TravelApp/Actions/navToApprovalDetailsPage.action")
+let travelapp_actions_navtoattachmentdetails_action = __webpack_require__(/*! ./TravelApp/Actions/NavToAttachmentDetails.action */ "./build.definitions/TravelApp/Actions/NavToAttachmentDetails.action")
 let travelapp_actions_navtocreateflightdetails_action = __webpack_require__(/*! ./TravelApp/Actions/NavToCreateFlightDetails.action */ "./build.definitions/TravelApp/Actions/NavToCreateFlightDetails.action")
 let travelapp_actions_navtocreaterequestpage_action = __webpack_require__(/*! ./TravelApp/Actions/NavtoCreateRequestPage.action */ "./build.definitions/TravelApp/Actions/NavtoCreateRequestPage.action")
 let travelapp_actions_navtohotelbookingspage_action = __webpack_require__(/*! ./TravelApp/Actions/NavToHotelBookingsPage.action */ "./build.definitions/TravelApp/Actions/NavToHotelBookingsPage.action")
 let travelapp_actions_navtotravelrequestdetailspage_action = __webpack_require__(/*! ./TravelApp/Actions/NavToTravelrequestDetailsPage.action */ "./build.definitions/TravelApp/Actions/NavToTravelrequestDetailsPage.action")
 let travelapp_actions_navtoupdatetravelrequestdetailspage_action = __webpack_require__(/*! ./TravelApp/Actions/navToUpdateTravelRequestDetailsPage.action */ "./build.definitions/TravelApp/Actions/navToUpdateTravelRequestDetailsPage.action")
+let travelapp_actions_postattachmentdata_action = __webpack_require__(/*! ./TravelApp/Actions/postAttachmentData.action */ "./build.definitions/TravelApp/Actions/postAttachmentData.action")
 let travelapp_actions_rejectrequestsrv_action = __webpack_require__(/*! ./TravelApp/Actions/rejectRequestSrv.action */ "./build.definitions/TravelApp/Actions/rejectRequestSrv.action")
 let travelapp_actions_requestrejectedsuccessmsg_action = __webpack_require__(/*! ./TravelApp/Actions/RequestRejectedSuccessMsg.action */ "./build.definitions/TravelApp/Actions/RequestRejectedSuccessMsg.action")
 let travelapp_actions_requestrejecterrormsg_action = __webpack_require__(/*! ./TravelApp/Actions/RequestRejectErrorMsg.action */ "./build.definitions/TravelApp/Actions/RequestRejectErrorMsg.action")
@@ -744,6 +884,7 @@ let travelapp_pages_application_support_page = __webpack_require__(/*! ./TravelA
 let travelapp_pages_application_useractivitylog_page = __webpack_require__(/*! ./TravelApp/Pages/Application/UserActivityLog.page */ "./build.definitions/TravelApp/Pages/Application/UserActivityLog.page")
 let travelapp_pages_approvaldetails_page = __webpack_require__(/*! ./TravelApp/Pages/approvalDetails.page */ "./build.definitions/TravelApp/Pages/approvalDetails.page")
 let travelapp_pages_approvals_page = __webpack_require__(/*! ./TravelApp/Pages/Approvals.page */ "./build.definitions/TravelApp/Pages/Approvals.page")
+let travelapp_pages_attachmentdetails_page = __webpack_require__(/*! ./TravelApp/Pages/AttachmentDetails.page */ "./build.definitions/TravelApp/Pages/AttachmentDetails.page")
 let travelapp_pages_boardingdetailstab_page = __webpack_require__(/*! ./TravelApp/Pages/boardingDetailsTab.page */ "./build.definitions/TravelApp/Pages/boardingDetailsTab.page")
 let travelapp_pages_createflight_page = __webpack_require__(/*! ./TravelApp/Pages/createFlight.page */ "./build.definitions/TravelApp/Pages/createFlight.page")
 let travelapp_pages_createhotel_page = __webpack_require__(/*! ./TravelApp/Pages/createHotel.page */ "./build.definitions/TravelApp/Pages/createHotel.page")
@@ -765,7 +906,10 @@ let travelapp_rules_application_getclientversion_js = __webpack_require__(/*! ./
 let travelapp_rules_application_onwillupdate_js = __webpack_require__(/*! ./TravelApp/Rules/Application/OnWillUpdate.js */ "./build.definitions/TravelApp/Rules/Application/OnWillUpdate.js")
 let travelapp_rules_application_resetappsettingsandlogout_js = __webpack_require__(/*! ./TravelApp/Rules/Application/ResetAppSettingsAndLogout.js */ "./build.definitions/TravelApp/Rules/Application/ResetAppSettingsAndLogout.js")
 let travelapp_rules_approverectedvisibility_js = __webpack_require__(/*! ./TravelApp/Rules/approveRectedVisibility.js */ "./build.definitions/TravelApp/Rules/approveRectedVisibility.js")
+let travelapp_rules_attachmentdynamicpath_js = __webpack_require__(/*! ./TravelApp/Rules/AttachmentDynamicPath.js */ "./build.definitions/TravelApp/Rules/AttachmentDynamicPath.js")
+let travelapp_rules_createflightdetails_js = __webpack_require__(/*! ./TravelApp/Rules/createFlightDetails.js */ "./build.definitions/TravelApp/Rules/createFlightDetails.js")
 let travelapp_rules_errorarchive_errorarchive_checkforsyncerror_js = __webpack_require__(/*! ./TravelApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js */ "./build.definitions/TravelApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js")
+let travelapp_rules_fetchattachmentdata_js = __webpack_require__(/*! ./TravelApp/Rules/fetchAttachmentData.js */ "./build.definitions/TravelApp/Rules/fetchAttachmentData.js")
 let travelapp_rules_logging_loglevels_js = __webpack_require__(/*! ./TravelApp/Rules/Logging/LogLevels.js */ "./build.definitions/TravelApp/Rules/Logging/LogLevels.js")
 let travelapp_rules_logging_settracecategories_js = __webpack_require__(/*! ./TravelApp/Rules/Logging/SetTraceCategories.js */ "./build.definitions/TravelApp/Rules/Logging/SetTraceCategories.js")
 let travelapp_rules_logging_setuserloglevel_js = __webpack_require__(/*! ./TravelApp/Rules/Logging/SetUserLogLevel.js */ "./build.definitions/TravelApp/Rules/Logging/SetUserLogLevel.js")
@@ -774,11 +918,12 @@ let travelapp_rules_logging_tracecategories_js = __webpack_require__(/*! ./Trave
 let travelapp_rules_logging_userlogsetting_js = __webpack_require__(/*! ./TravelApp/Rules/Logging/UserLogSetting.js */ "./build.definitions/TravelApp/Rules/Logging/UserLogSetting.js")
 let travelapp_rules_service_initialize_js = __webpack_require__(/*! ./TravelApp/Rules/Service/Initialize.js */ "./build.definitions/TravelApp/Rules/Service/Initialize.js")
 let travelapp_services_com_initium_hpcl_service = __webpack_require__(/*! ./TravelApp/Services/com_initium_hpcl.service */ "./build.definitions/TravelApp/Services/com_initium_hpcl.service")
+let travelapp_services_document_information_extraction_service = __webpack_require__(/*! ./TravelApp/Services/document_information_extraction.service */ "./build.definitions/TravelApp/Services/document_information_extraction.service")
+let travelapp_services_travelapp_service = __webpack_require__(/*! ./TravelApp/Services/TravelApp.service */ "./build.definitions/TravelApp/Services/TravelApp.service")
 let travelapp_styles_styles_css = __webpack_require__(/*! ./TravelApp/Styles/Styles.css */ "./build.definitions/TravelApp/Styles/Styles.css")
+let travelapp_styles_styles_json = __webpack_require__(/*! ./TravelApp/Styles/Styles.json */ "./build.definitions/TravelApp/Styles/Styles.json")
 let travelapp_styles_styles_less = __webpack_require__(/*! ./TravelApp/Styles/Styles.less */ "./build.definitions/TravelApp/Styles/Styles.less")
-let travelapp_styles_styles_light_css = __webpack_require__(/*! ./TravelApp/Styles/Styles.light.css */ "./build.definitions/TravelApp/Styles/Styles.light.css")
-let travelapp_styles_styles_light_json = __webpack_require__(/*! ./TravelApp/Styles/Styles.light.json */ "./build.definitions/TravelApp/Styles/Styles.light.json")
-let travelapp_styles_styles_light_nss = __webpack_require__(/*! ./TravelApp/Styles/Styles.light.nss */ "./build.definitions/TravelApp/Styles/Styles.light.nss")
+let travelapp_styles_styles_nss = __webpack_require__(/*! ./TravelApp/Styles/Styles.nss */ "./build.definitions/TravelApp/Styles/Styles.nss")
 let tsconfig_json = __webpack_require__(/*! ./tsconfig.json */ "./build.definitions/tsconfig.json")
 let version_mdkbundlerversion = __webpack_require__(/*! ./version.mdkbundlerversion */ "./build.definitions/version.mdkbundlerversion")
 
@@ -830,11 +975,13 @@ module.exports = {
 	travelapp_actions_logging_uploadlogprogress_action : travelapp_actions_logging_uploadlogprogress_action,
 	travelapp_actions_navtoaddexpensepage_action : travelapp_actions_navtoaddexpensepage_action,
 	travelapp_actions_navtoapprovaldetailspage_action : travelapp_actions_navtoapprovaldetailspage_action,
+	travelapp_actions_navtoattachmentdetails_action : travelapp_actions_navtoattachmentdetails_action,
 	travelapp_actions_navtocreateflightdetails_action : travelapp_actions_navtocreateflightdetails_action,
 	travelapp_actions_navtocreaterequestpage_action : travelapp_actions_navtocreaterequestpage_action,
 	travelapp_actions_navtohotelbookingspage_action : travelapp_actions_navtohotelbookingspage_action,
 	travelapp_actions_navtotravelrequestdetailspage_action : travelapp_actions_navtotravelrequestdetailspage_action,
 	travelapp_actions_navtoupdatetravelrequestdetailspage_action : travelapp_actions_navtoupdatetravelrequestdetailspage_action,
+	travelapp_actions_postattachmentdata_action : travelapp_actions_postattachmentdata_action,
 	travelapp_actions_rejectrequestsrv_action : travelapp_actions_rejectrequestsrv_action,
 	travelapp_actions_requestrejectedsuccessmsg_action : travelapp_actions_requestrejectedsuccessmsg_action,
 	travelapp_actions_requestrejecterrormsg_action : travelapp_actions_requestrejecterrormsg_action,
@@ -852,6 +999,7 @@ module.exports = {
 	travelapp_pages_application_useractivitylog_page : travelapp_pages_application_useractivitylog_page,
 	travelapp_pages_approvaldetails_page : travelapp_pages_approvaldetails_page,
 	travelapp_pages_approvals_page : travelapp_pages_approvals_page,
+	travelapp_pages_attachmentdetails_page : travelapp_pages_attachmentdetails_page,
 	travelapp_pages_boardingdetailstab_page : travelapp_pages_boardingdetailstab_page,
 	travelapp_pages_createflight_page : travelapp_pages_createflight_page,
 	travelapp_pages_createhotel_page : travelapp_pages_createhotel_page,
@@ -873,7 +1021,10 @@ module.exports = {
 	travelapp_rules_application_onwillupdate_js : travelapp_rules_application_onwillupdate_js,
 	travelapp_rules_application_resetappsettingsandlogout_js : travelapp_rules_application_resetappsettingsandlogout_js,
 	travelapp_rules_approverectedvisibility_js : travelapp_rules_approverectedvisibility_js,
+	travelapp_rules_attachmentdynamicpath_js : travelapp_rules_attachmentdynamicpath_js,
+	travelapp_rules_createflightdetails_js : travelapp_rules_createflightdetails_js,
 	travelapp_rules_errorarchive_errorarchive_checkforsyncerror_js : travelapp_rules_errorarchive_errorarchive_checkforsyncerror_js,
+	travelapp_rules_fetchattachmentdata_js : travelapp_rules_fetchattachmentdata_js,
 	travelapp_rules_logging_loglevels_js : travelapp_rules_logging_loglevels_js,
 	travelapp_rules_logging_settracecategories_js : travelapp_rules_logging_settracecategories_js,
 	travelapp_rules_logging_setuserloglevel_js : travelapp_rules_logging_setuserloglevel_js,
@@ -882,11 +1033,12 @@ module.exports = {
 	travelapp_rules_logging_userlogsetting_js : travelapp_rules_logging_userlogsetting_js,
 	travelapp_rules_service_initialize_js : travelapp_rules_service_initialize_js,
 	travelapp_services_com_initium_hpcl_service : travelapp_services_com_initium_hpcl_service,
+	travelapp_services_document_information_extraction_service : travelapp_services_document_information_extraction_service,
+	travelapp_services_travelapp_service : travelapp_services_travelapp_service,
 	travelapp_styles_styles_css : travelapp_styles_styles_css,
+	travelapp_styles_styles_json : travelapp_styles_styles_json,
 	travelapp_styles_styles_less : travelapp_styles_styles_less,
-	travelapp_styles_styles_light_css : travelapp_styles_styles_light_css,
-	travelapp_styles_styles_light_json : travelapp_styles_styles_light_json,
-	travelapp_styles_styles_light_nss : travelapp_styles_styles_light_nss,
+	travelapp_styles_styles_nss : travelapp_styles_styles_nss,
 	tsconfig_json : tsconfig_json,
 	version_mdkbundlerversion : version_mdkbundlerversion
 }
@@ -912,7 +1064,7 @@ Examples:
 @mdkRed1: #ff0000;
 
 //// By-Type style: All Pages in the application will now have a yellow background
-Page
+div.MDKPage
 
 { background-color: @mdkYellow1; }
 //// By-Name style: All Buttons with _Name == "BlueButton" will now have this style
@@ -970,28 +1122,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ "./build.definitions/TravelApp/Styles/Styles.light.css":
-/*!*************************************************************!*\
-  !*** ./build.definitions/TravelApp/Styles/Styles.light.css ***!
-  \*************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// Imports
-var ___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/noSourceMaps.js */ "../../../../css-loader/dist/runtime/noSourceMaps.js");
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../../../../css-loader/dist/runtime/api.js */ "../../../../css-loader/dist/runtime/api.js");
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_NO_SOURCEMAP_IMPORT___);
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ``, ""]);
-// Exports
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ "./build.definitions/TravelApp/Styles/Styles.light.nss":
-/*!*************************************************************!*\
-  !*** ./build.definitions/TravelApp/Styles/Styles.light.nss ***!
-  \*************************************************************/
+/***/ "./build.definitions/TravelApp/Styles/Styles.nss":
+/*!*******************************************************!*\
+  !*** ./build.definitions/TravelApp/Styles/Styles.nss ***!
+  \*******************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // Imports
@@ -1152,7 +1286,17 @@ module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":true,"_Type
   \**********************************************************/
 /***/ ((module) => {
 
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"TravelRequest"},"_Name":"SectionGridTable0","Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{TripNumber}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{TravelType}","TextAlignment":"Left"},{"BindTo":"Status","LineBreakMode":"WordWrapping","NumberOfLines":1,"Text":"{Status}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1]},"AccessoryType":"None","OnPress":"/TravelApp/Actions/navToApprovalDetailsPage.action"},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50},"Search":{"MinimumCharacterThreshold":10}}],"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"}}],"_Type":"Page","_Name":"Approvals","Caption":"Approvals","PrefersLargeCaption":true}
+module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"TravelRequest"},"_Name":"SectionGridTable0","Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{TripNumber}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{TravelType}","TextAlignment":"Left"},{"BindTo":"Status","LineBreakMode":"WordWrapping","NumberOfLines":1,"Text":"{Status}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1]},"AccessoryType":"None","OnPress":"/TravelApp/Actions/navToApprovalDetailsPage.action"},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50},"Search":{"MinimumCharacterThreshold":10}}],"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"}}],"_Type":"Page","_Name":"Approvals","Caption":"Approvals","PrefersLargeCaption":true}
+
+/***/ }),
+
+/***/ "./build.definitions/TravelApp/Pages/AttachmentDetails.page":
+/*!******************************************************************!*\
+  !*** ./build.definitions/TravelApp/Pages/AttachmentDetails.page ***!
+  \******************************************************************/
+/***/ ((module) => {
+
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{name}","TextAlignment":"Left"},{"BindTo":"Footnote","NumberOfLines":1,"Text":"{category}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{value}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1]},"AccessoryType":"None"},"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/document_information_extraction.service","Path":"/TravelApp/Rules/AttachmentDynamicPath.js","OutputPath":"/extraction/headerFields","RequestProperties":{"Method":"GET","FetchCSRF":true}},"_Name":"SectionGridTable0","Visible":true,"EmptySection":{"FooterVisible":false},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50}}]}],"_Type":"Page","_Name":"AttachmentDetails","Caption":"AttachmentDetails","PrefersLargeCaption":true}
 
 /***/ }),
 
@@ -1182,7 +1326,7 @@ module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"Se
   \*******************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ObjectTable","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"ErrorArchive"},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"FooterVisible":false,"Caption":"No record found!"},"ObjectCell":{"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true},"Title":"{HTTPStatusCode}","Subhead":"{RequestURL}","Footnote":"{Message}","StatusText":"{RequestMethod}","AvatarStack":{"ImageIsCircular":false},"PreserveIconStackSpacing":false,"AccessoryType":"None","OnPress":"/TravelApp/Actions/ErrorArchive/NavToErrorArchive_Detail.action","Selected":false},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50},"HighlightSelectedItem":false,"Selection":{"ExitOnLastDeselect":true,"LongPressToEnable":"None","Mode":"None"}}]}],"_Type":"Page","_Name":"ErrorArchive_List","Caption":"Error List","PrefersLargeCaption":true}
+module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"_Type":"Section.Type.ObjectTable","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"ErrorArchive"},"_Name":"SectionObjectTable0","Visible":true,"EmptySection":{"FooterVisible":false,"Caption":"No record found!"},"ObjectCell":{"ContextMenu":{"Items":[],"PerformFirstActionWithFullSwipe":true},"Title":"{HTTPStatusCode}","Subhead":"{RequestURL}","Footnote":"{Message}","StatusText":"{RequestMethod}","AvatarStack":{"ImageIsCircular":false},"PreserveIconStackSpacing":false,"AccessoryType":"None","OnPress":"/TravelApp/Actions/ErrorArchive/NavToErrorArchive_Detail.action","Selected":false},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50},"HighlightSelectedItem":false,"Selection":{"ExitOnLastDeselect":true,"LongPressToEnable":"None","Mode":"None"}}]}],"_Type":"Page","_Name":"ErrorArchive_List","Caption":"Error List","PrefersLargeCaption":true}
 
 /***/ }),
 
@@ -1202,7 +1346,7 @@ module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Typ
   \************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Controls":[{"_Type":"Control.Type.FormCell.Button","_Name":"FormCellButton0","IsVisible":true,"Separator":false,"Title":"Flight Details","Alignment":"Left","ButtonType":"Secondary","Semantic":"Normal","ImagePosition":"Leading","Enabled":true}],"Layout":{"NumberOfColumns":1},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0"},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{flightNo}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{flightFrom}","TextAlignment":"Left"},{"BindTo":"Footnote","NumberOfLines":1,"Text":"{flightTo}","TextAlignment":"Left"},{"BindTo":"Status","NumberOfLines":1,"Text":"{boardingDate}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1,0.1]},"AccessoryType":"None"},"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"BoardingPass"},"_Name":"SectionGridTable0","Visible":true,"EmptySection":{"FooterVisible":false},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Please Wait","PageSize":50}},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Controls":[{"_Type":"Control.Type.FormCell.Button","_Name":"FormCellButton1","IsVisible":true,"Separator":false,"Title":"Hotel Details","Alignment":"Left","ButtonType":"Secondary","Semantic":"Normal","ImagePosition":"Leading","Enabled":true}],"Layout":{"NumberOfColumns":1},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"SectionFormCell1"},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{name}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{roomType}","TextAlignment":"Left"},{"BindTo":"Footnote","NumberOfLines":1,"Text":"{checkIn}","TextAlignment":"Left"},{"BindTo":"Status","NumberOfLines":1,"Text":"{checkOut}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1,0.1]},"AccessoryType":"None"},"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"HotelBooking"},"_Name":"SectionGridTable1","Visible":true,"EmptySection":{"FooterVisible":false},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50}}]}],"_Type":"Page","_Name":"addExpenses","Caption":"Add Expenses","PrefersLargeCaption":true,"FioriToolbar":{"_Type":"Control.Type.FioriToolbar","_Name":"FioriToolbar0","Items":[{"_Type":"FioriToolbarItem.Type.Button","_Name":"ToolbarItem0","Visible":true,"Title":"Flight","OnPress":"/TravelApp/Actions/NavToCreateFlightDetails.action","Image":"sap-icon://flight","Enabled":true,"ButtonType":"Primary","Semantic":"Tint","ImagePosition":"Leading"},{"_Type":"FioriToolbarItem.Type.Button","_Name":"ToolbarItem1","Visible":true,"Title":"Hotel","OnPress":"/TravelApp/Actions/NavToHotelBookingsPage.action","Image":"sap-icon://home","Enabled":true,"ButtonType":"Primary","Semantic":"Tint","ImagePosition":"Leading"}]}}
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Controls":[{"_Type":"Control.Type.FormCell.Button","_Name":"FormCellButton0","IsVisible":true,"Separator":false,"Title":"Flight Details","Alignment":"Left","ButtonType":"Secondary","Semantic":"Normal","ImagePosition":"Leading","Enabled":true}],"Layout":{"NumberOfColumns":1},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0"},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{flightNo}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{flightFrom}","TextAlignment":"Left"},{"BindTo":"Footnote","NumberOfLines":1,"Text":"{flightTo}","TextAlignment":"Left"},{"BindTo":"Status","NumberOfLines":1,"Text":"{boardingDate}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1,0.1]},"AccessoryType":"None","OnPress":"/TravelApp/Actions/NavToAttachmentDetails.action"},"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"BoardingPass"},"_Name":"SectionGridTable0","Visible":true,"EmptySection":{"FooterVisible":false},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Please Wait","PageSize":50}},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Controls":[{"_Type":"Control.Type.FormCell.Button","_Name":"FormCellButton1","IsVisible":true,"Separator":false,"Title":"Hotel Details","Alignment":"Left","ButtonType":"Secondary","Semantic":"Normal","ImagePosition":"Leading","Enabled":true}],"Layout":{"NumberOfColumns":1},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"SectionFormCell1"},{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{name}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{roomType}","TextAlignment":"Left"},{"BindTo":"Footnote","NumberOfLines":1,"Text":"{checkIn}","TextAlignment":"Left"},{"BindTo":"Status","NumberOfLines":1,"Text":"{checkOut}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1,0.1]},"AccessoryType":"None"},"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"HotelBooking"},"_Name":"SectionGridTable1","Visible":true,"EmptySection":{"FooterVisible":false},"DataPaging":{"ShowLoadingIndicator":false,"PageSize":50}}]}],"_Type":"Page","_Name":"addExpenses","Caption":"Add Expenses","PrefersLargeCaption":true,"FioriToolbar":{"_Type":"Control.Type.FioriToolbar","_Name":"FioriToolbar0","Items":[{"_Type":"FioriToolbarItem.Type.Button","_Name":"ToolbarItem0","Visible":true,"Title":"Flight","OnPress":"/TravelApp/Actions/NavToCreateFlightDetails.action","Image":"sap-icon://flight","Enabled":true,"ButtonType":"Primary","Semantic":"Tint","ImagePosition":"Leading"},{"_Type":"FioriToolbarItem.Type.Button","_Name":"ToolbarItem1","Visible":true,"Title":"Hotel","OnPress":"/TravelApp/Actions/NavToHotelBookingsPage.action","Image":"sap-icon://home","Enabled":true,"ButtonType":"Primary","Semantic":"Tint","ImagePosition":"Leading"}]}}
 
 /***/ }),
 
@@ -1232,7 +1376,7 @@ module.exports = {"_Type":"Page","_Name":"boardingDetailsTab","Controls":[{"_Nam
   \*************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Controls":[{"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"Visible":true,"EmptySection":{"FooterVisible":false},"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0","Controls":[{"_Type":"Control.Type.FormCell.SimpleProperty","_Name":"FCFlightNo","IsVisible":true,"Separator":true,"Caption":"Flight No","Enabled":true,"IsEditable":true},{"_Type":"Control.Type.FormCell.SimpleProperty","_Name":"FCFlightFrom","IsVisible":true,"Separator":true,"Caption":"Flight From","Enabled":true,"IsEditable":true},{"_Type":"Control.Type.FormCell.SimpleProperty","_Name":"FCFlightTo","IsVisible":true,"Separator":true,"Caption":"Flight To","Enabled":true,"IsEditable":true},{"_Type":"Control.Type.FormCell.SimpleProperty","_Name":"FCSeatNo","IsVisible":true,"Separator":true,"Caption":"Seat No","Enabled":true,"IsEditable":true},{"Value":"Enter Date","_Type":"Control.Type.FormCell.DatePicker","_Name":"FCBoardingDate","IsVisible":true,"Separator":true,"Caption":"Boarding Date","IsEditable":true,"Mode":"Datetime"},{"_Type":"Control.Type.FormCell.Button","_Name":"FormCellButton0","IsVisible":true,"Separator":true,"Title":"Submit","Alignment":"Center","ButtonType":"Primary","Semantic":"Tint","Image":"sap-icon://save","ImagePosition":"Leading","Enabled":true,"OnPress":"/TravelApp/Actions/createFlightDetailsSrv.action"}],"Layout":{"NumberOfColumns":1}}],"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"}}],"_Type":"Page","_Name":"createFlight","Caption":"Flight Details","PrefersLargeCaption":true}
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Controls":[{"_Type":"Control.Type.FormCell.SimpleProperty","_Name":"FCFlightNo","IsVisible":true,"Separator":true,"Caption":"Flight No","Enabled":true,"IsEditable":true},{"_Type":"Control.Type.FormCell.SimpleProperty","_Name":"FCFlightFrom","IsVisible":true,"Separator":true,"Caption":"Flight From","Enabled":true,"IsEditable":true},{"_Type":"Control.Type.FormCell.SimpleProperty","_Name":"FCFlightTo","IsVisible":true,"Separator":true,"Caption":"Flight To","Enabled":true,"IsEditable":true},{"_Type":"Control.Type.FormCell.SimpleProperty","_Name":"FCSeatNo","IsVisible":true,"Separator":true,"Caption":"Seat No","Enabled":true,"IsEditable":true},{"Value":"Enter Date","_Type":"Control.Type.FormCell.DatePicker","_Name":"FCBoardingDate","IsVisible":true,"Separator":true,"Caption":"Boarding Date","IsEditable":true,"Mode":"Datetime"},{"_Type":"Control.Type.FormCell.Attachment","_Name":"FCAttachment","IsVisible":true,"Separator":true,"AttachmentActionType":["AddPhoto","TakePhoto","SelectFile"]},{"_Type":"Control.Type.FormCell.Button","_Name":"FormCellButton0","IsVisible":true,"Separator":true,"Title":"Submit","Alignment":"Center","ButtonType":"Primary","Semantic":"Tint","Image":"sap-icon://save","ImagePosition":"Leading","Enabled":true,"OnPress":"/TravelApp/Actions/createFlightDetailsSrv.action"}],"Layout":{"NumberOfColumns":1},"Visible":true,"EmptySection":{"FooterVisible":false},"_Type":"Section.Type.FormCell","_Name":"SectionFormCell0"}]}],"_Type":"Page","_Name":"createFlight","Caption":"Flight Details","PrefersLargeCaption":true}
 
 /***/ }),
 
@@ -1272,7 +1416,7 @@ module.exports = {"_Type":"Page","_Name":"travelDetailsTab","Controls":[{"_Name"
   \**************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{TripNumber}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{TravelType}","TextAlignment":"Left"},{"BindTo":"Status","LineBreakMode":"WordWrapping","NumberOfLines":1,"Text":"{Status}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1]},"AccessoryType":"None","OnPress":"/TravelApp/Actions/NavToTravelrequestDetailsPage.action"},"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"TravelRequest","ReadLink":"{@odata.readLink}","ServerSidePaging":true},"_Name":"SectionGridTable0","Visible":true,"EmptySection":{"FooterVisible":false},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Loading","PageSize":50}}]}],"_Type":"Page","_Name":"travelRequest","Caption":"Travel Requests","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Add","SystemItem":"Add","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/TravelApp/Actions/NavtoCreateRequestPage.action"}],"_Name":"ActionBar1"}}
+module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Type":"Control.Type.FilterFeedbackBar"},"_Type":"Control.Type.SectionedTable","_Name":"SectionedTable0","Sections":[{"Separators":{"TopSectionSeparator":false,"BottomSectionSeparator":true,"HeaderSeparator":true,"FooterSeparator":true,"ControlSeparator":true},"Row":{"Items":[{"BindTo":"Headline","NumberOfLines":1,"Text":"{TripNumber}","TextAlignment":"Left"},{"BindTo":"Subheadline","NumberOfLines":1,"Text":"{TravelType}","TextAlignment":"Left"},{"BindTo":"Status","LineBreakMode":"WordWrapping","NumberOfLines":1,"Text":"{Status}","TextAlignment":"Left"}],"Layout":{"ColumnWidthPercentage":[0.1,0.1,0.1]},"AccessoryType":"None","OnPress":"/TravelApp/Actions/NavToTravelrequestDetailsPage.action"},"_Type":"Section.Type.GridTable","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"TravelRequest","ReadLink":"{@odata.readLink}","ServerSidePaging":true},"_Name":"SectionGridTable0","Visible":true,"EmptySection":{"FooterVisible":false},"DataPaging":{"ShowLoadingIndicator":true,"LoadingIndicatorText":"Loading","PageSize":50}}]}],"_Type":"Page","_Name":"travelRequest","Caption":"Travel Requests","PrefersLargeCaption":true,"ActionBar":{"Items":[{"_Name":"ActionBarItem0","Caption":"Add","SystemItem":"Add","Position":"Right","IsIconCircular":false,"Visible":true,"OnPress":"/TravelApp/Actions/NavtoCreateRequestPage.action"}],"_Name":"ActionBar1"}}
 
 /***/ }),
 
@@ -1302,7 +1446,7 @@ module.exports = {"Controls":[{"FilterFeedbackBar":{"ShowAllFilters":false,"_Typ
   \*******************************************/
 /***/ ((module) => {
 
-module.exports = {"MainPage":"/TravelApp/Pages/mainNav.page","OnLaunch":["/TravelApp/Rules/Service/Initialize.js"],"OnWillUpdate":"/TravelApp/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/TravelApp/Rules/Service/Initialize.js","Styles":"/TravelApp/Styles/Styles.css","Version":"/TravelApp/Globals/Application/AppDefinition_Version.global","Localization":"/TravelApp/i18n/i18n.properties","_SchemaVersion":"24.7","_Name":"TravelApp","StyleSheets":{"Styles":{"css":"/TravelApp/Styles/Styles.light.css","ios":"/TravelApp/Styles/Styles.light.nss","android":"/TravelApp/Styles/Styles.light.json"}},"SDKStyles":{"ios":"/TravelApp/Styles/Styles.light.nss","android":"/TravelApp/Styles/Styles.light.json"}}
+module.exports = {"MainPage":"/TravelApp/Pages/mainNav.page","OnLaunch":["/TravelApp/Rules/Service/Initialize.js"],"OnWillUpdate":"/TravelApp/Rules/Application/OnWillUpdate.js","OnDidUpdate":"/TravelApp/Rules/Service/Initialize.js","Styles":"/TravelApp/Styles/Styles.less","Version":"/TravelApp/Globals/Application/AppDefinition_Version.global","Localization":"/TravelApp/i18n/i18n.properties","_SchemaVersion":"24.7","_Name":"TravelApp","StyleSheets":{"Styles":{"css":"/TravelApp/Styles/Styles.css","ios":"/TravelApp/Styles/Styles.nss","android":"/TravelApp/Styles/Styles.json"}}}
 
 /***/ }),
 
@@ -1442,7 +1586,7 @@ module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"Approve
   \**********************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"ApproveSuccessMsg"},"Message":"Travel request Approved successfully","OKCaption":"OK"}
+module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"ApproveSuccessMsg"},"Message":"Travel request Approved successfully","OKCaption":"OK","OnOK":"/TravelApp/Actions/CloseModalPage_Complete.action"}
 
 /***/ }),
 
@@ -1492,7 +1636,7 @@ module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"CreateT
   \***************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.ODataService.CreateEntity","ActionResult":{"_Name":"CreateTravelRequestSrv"},"OnFailure":"/TravelApp/Actions/CreateTravelReqEntityFailureM.action","OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"TravelRequest"},"Properties":{"TripNumber":"#Control:FCTripNumber/#Value","TravelType":"#Control:FCTravelType/#Value","Destination":"#Control:FCDestination/#Value","Status":"#Control:FCStatus/#Value","StartDate":"#Control:FCStartDate/#Value","EndDate":"#Control:FCEndDate/#Value","SubActivity":"#Control:FCSubActivity/#Value"}}
+module.exports = {"_Type":"Action.Type.ODataService.CreateEntity","ActionResult":{"_Name":"CreateTravelRequestSrv"},"OnFailure":"/TravelApp/Actions/CreateTravelReqEntityFailureM.action","OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"TravelRequest"},"Properties":{"TripNumber":"#Control:FCTripNumber/#Value","TravelType":"#Control:FCTravelType/#Value","Destination":"#Control:FCDestination/#Value","Status":"#Control:FCStatus/#Value","StartDate":"#Control:FCStartDate/#Value","EndDate":"#Control:FCEndDate/#Value","SubActivity":"#Control:FCSubActivity/#Value"}}
 
 /***/ }),
 
@@ -1616,6 +1760,16 @@ module.exports = {"_Type":"Action.Type.Navigation","ActionResult":{"_Name":"NavT
 
 /***/ }),
 
+/***/ "./build.definitions/TravelApp/Actions/NavToAttachmentDetails.action":
+/*!***************************************************************************!*\
+  !*** ./build.definitions/TravelApp/Actions/NavToAttachmentDetails.action ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"_Type":"Action.Type.Navigation","ActionResult":{"_Name":"NavToAttachmentDetails"},"PageToOpen":"/TravelApp/Pages/AttachmentDetails.page"}
+
+/***/ }),
+
 /***/ "./build.definitions/TravelApp/Actions/NavToCreateFlightDetails.action":
 /*!*****************************************************************************!*\
   !*** ./build.definitions/TravelApp/Actions/NavToCreateFlightDetails.action ***!
@@ -1672,7 +1826,7 @@ module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"Request
   \******************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"RequestRejectedSuccessMsg"},"Message":"Request rejected successfully","OKCaption":"OK"}
+module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"RequestRejectedSuccessMsg"},"OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Message":"Request rejected successfully","OKCaption":"OK"}
 
 /***/ }),
 
@@ -1682,7 +1836,7 @@ module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"Request
   \**********************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"approveRequestSrv"},"OnFailure":"/TravelApp/Actions/ApproveErrorMsg.action","OnSuccess":"/TravelApp/Actions/ApproveSuccessMsg.action","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"TravelRequest","ReadLink":"{@odata.readLink}"},"Properties":{"ID":"{ID}","Status":"Approved"}}
+module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"approveRequestSrv"},"OnFailure":"/TravelApp/Actions/ApproveErrorMsg.action","OnSuccess":"/TravelApp/Actions/ApproveSuccessMsg.action","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"TravelRequest","ReadLink":"{@odata.readLink}"},"Properties":{"ID":"{ID}","Status":"Approved"}}
 
 /***/ }),
 
@@ -1692,7 +1846,7 @@ module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult"
   \******************************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.OfflineOData.Close","Service":"/TravelApp/Services/com_initium_hpcl.service","Force":true,"ActionResult":{"_Name":"close"},"OnSuccess":"/TravelApp/Actions/com_initium_hpcl/Service/CloseOfflineSuccessMessage.action","OnFailure":"/TravelApp/Actions/com_initium_hpcl/Service/CloseOfflineFailureMessage.action"}
+module.exports = {"_Type":"Action.Type.OfflineOData.Close","Service":"/TravelApp/Services/TravelApp.service","Force":true,"ActionResult":{"_Name":"close"},"OnSuccess":"/TravelApp/Actions/com_initium_hpcl/Service/CloseOfflineSuccessMessage.action","OnFailure":"/TravelApp/Actions/com_initium_hpcl/Service/CloseOfflineFailureMessage.action"}
 
 /***/ }),
 
@@ -1722,7 +1876,7 @@ module.exports = {"Message":"Data service closed successfully","NumberOfLines":1
   \*********************************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Service":"/TravelApp/Services/com_initium_hpcl.service","DefiningRequests":[{"Name":"TravelRequest","Query":"TravelRequest"}],"_Type":"Action.Type.OfflineOData.Download","ActionResult":{"_Name":"sync"},"OnFailure":"/TravelApp/Actions/com_initium_hpcl/Service/SyncFailureMessage.action","OnSuccess":"/TravelApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js"}
+module.exports = {"Service":"/TravelApp/Services/TravelApp.service","DefiningRequests":[{"Name":"TravelRequest","Query":"TravelRequest"}],"_Type":"Action.Type.OfflineOData.Download","ActionResult":{"_Name":"sync"},"OnFailure":"/TravelApp/Actions/com_initium_hpcl/Service/SyncFailureMessage.action","OnSuccess":"/TravelApp/Rules/ErrorArchive/ErrorArchive_CheckForSyncError.js"}
 
 /***/ }),
 
@@ -1742,7 +1896,7 @@ module.exports = {"Message":"Download in progress...","CompletionMessage":"Downl
   \***********************************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Service":"/TravelApp/Services/com_initium_hpcl.service","DefiningRequests":[{"Name":"TravelRequest","Query":"TravelRequest"}],"_Type":"Action.Type.ODataService.Initialize","ShowActivityIndicator":true,"ActivityIndicatorText":"Downloading...","ActionResult":{"_Name":"init"},"OnFailure":"/TravelApp/Actions/com_initium_hpcl/Service/InitializeOfflineFailureMessage.action"}
+module.exports = {"Service":"/TravelApp/Services/TravelApp.service","DefiningRequests":[{"Name":"TravelRequest","Query":"TravelRequest"}],"_Type":"Action.Type.ODataService.Initialize","ShowActivityIndicator":true,"ActivityIndicatorText":"Downloading...","ActionResult":{"_Name":"init"},"OnFailure":"/TravelApp/Actions/com_initium_hpcl/Service/InitializeOfflineFailureMessage.action"}
 
 /***/ }),
 
@@ -1782,7 +1936,7 @@ module.exports = {"Message":"Upload in progress...","CompletionMessage":"Sync co
   \*******************************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"Service":"/TravelApp/Services/com_initium_hpcl.service","_Type":"Action.Type.OfflineOData.Upload","ActionResult":{"_Name":"sync"},"OnSuccess":"/TravelApp/Actions/com_initium_hpcl/Service/DownloadStartedMessage.action","OnFailure":"/TravelApp/Actions/com_initium_hpcl/Service/SyncFailureMessage.action"}
+module.exports = {"Service":"/TravelApp/Services/TravelApp.service","_Type":"Action.Type.OfflineOData.Upload","ActionResult":{"_Name":"sync"},"OnSuccess":"/TravelApp/Actions/com_initium_hpcl/Service/DownloadStartedMessage.action","OnFailure":"/TravelApp/Actions/com_initium_hpcl/Service/SyncFailureMessage.action"}
 
 /***/ }),
 
@@ -1792,7 +1946,7 @@ module.exports = {"Service":"/TravelApp/Services/com_initium_hpcl.service","_Typ
   \***************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.ODataService.CreateEntity","ActionResult":{"_Name":"createFlightDetailsSrv"},"OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"BoardingPass"},"Properties":{"flightNo":"#Control:FCFlightNo/#Value","flightFrom":"#Control:FCFlightFrom/#Value","flightTo":"#Control:FCFlightTo/#Value","seatNo":"#Control:FCSeatNo/#Value","boardingDate":"#Control:FCBoardingDate/#Value","req_ID":"{ID}"}}
+module.exports = {"_Type":"Action.Type.ODataService.CreateEntity","ActionResult":{"_Name":"createFlightDetailsSrv"},"OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"BoardingPass"},"Properties":{"flightNo":"#Control:FCFlightNo/#Value","flightFrom":"#Control:FCFlightFrom/#Value","flightTo":"#Control:FCFlightTo/#Value","seatNo":"#Control:FCSeatNo/#Value","boardingDate":"#Control:FCBoardingDate/#Value","attachmentId":"/TravelApp/Rules/createFlightDetails.js","req_ID":"{ID}"}}
 
 /***/ }),
 
@@ -1802,7 +1956,7 @@ module.exports = {"_Type":"Action.Type.ODataService.CreateEntity","ActionResult"
   \*********************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.ODataService.CreateEntity","ActionResult":{"_Name":"createHotelBookingDetailsSrv"},"OnFailure":"/TravelApp/Actions/createHotelFailed.action","OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"HotelBooking"},"Properties":{"gstState":"#Control:FCGstState/#SelectedValue","name":"#Control:FCHotelName/#Value","email":"#Control:FCHotelEmail/#Value","roomType":"#Control:FCRoomType/#Value","noofGuest":"#Control:FCNoOfGuest/#Value","checkIn":"#Control:FCCheckIn/#Value","checkOut":"#Control:FCCheckOut/#Value","req_ID":"{ID}"}}
+module.exports = {"_Type":"Action.Type.ODataService.CreateEntity","ActionResult":{"_Name":"createHotelBookingDetailsSrv"},"OnFailure":"/TravelApp/Actions/createHotelFailed.action","OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"HotelBooking"},"Properties":{"gstState":"#Control:FCGstState/#SelectedValue","name":"#Control:FCHotelName/#Value","email":"#Control:FCHotelEmail/#Value","roomType":"#Control:FCRoomType/#Value","noofGuest":"#Control:FCNoOfGuest/#Value","checkIn":"#Control:FCCheckIn/#Value","checkOut":"#Control:FCCheckOut/#Value","req_ID":"{ID}"}}
 
 /***/ }),
 
@@ -1836,13 +1990,23 @@ module.exports = {"_Type":"Action.Type.Navigation","ActionResult":{"_Name":"navT
 
 /***/ }),
 
+/***/ "./build.definitions/TravelApp/Actions/postAttachmentData.action":
+/*!***********************************************************************!*\
+  !*** ./build.definitions/TravelApp/Actions/postAttachmentData.action ***!
+  \***********************************************************************/
+/***/ ((module) => {
+
+module.exports = {"_Type":"Action.Type.RestService.SendRequest","ActionResult":{"_Name":"postAttachmentData"},"Target":{"Service":"/TravelApp/Services/document_information_extraction.service","Path":"/document/jobs","OutputPath":"/id","RequestProperties":{"Method":"POST","Body":"/TravelApp/Rules/fetchAttachmentData.js","FetchCSRF":false}}}
+
+/***/ }),
+
 /***/ "./build.definitions/TravelApp/Actions/rejectRequestSrv.action":
 /*!*********************************************************************!*\
   !*** ./build.definitions/TravelApp/Actions/rejectRequestSrv.action ***!
   \*********************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"rejectRequestSrv"},"OnFailure":"/TravelApp/Actions/RequestRejectErrorMsg.action","OnSuccess":"/TravelApp/Actions/RequestRejectedSuccessMsg.action","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"TravelRequest","ReadLink":"{@odata.readLink}"},"Properties":{"ID":"{ID}","Status":"Rejected"}}
+module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"rejectRequestSrv"},"OnFailure":"/TravelApp/Actions/RequestRejectErrorMsg.action","OnSuccess":"/TravelApp/Actions/RequestRejectedSuccessMsg.action","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"TravelRequest","ReadLink":"{@odata.readLink}"},"Properties":{"ID":"{ID}","Status":"Rejected"}}
 
 /***/ }),
 
@@ -1862,7 +2026,7 @@ module.exports = {"_Type":"Action.Type.Message","ActionResult":{"_Name":"updateT
   \***************************************************************************/
 /***/ ((module) => {
 
-module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"updateTravelRequestSrv"},"OnFailure":"/TravelApp/Actions/updateTravelDetailsErrorMsg.action","OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/TravelApp/Services/com_initium_hpcl.service","EntitySet":"TravelRequest","ReadLink":"{@odata.readLink}"},"Properties":{"ID":"{ID}","TravelType":"#Control:FCTravelType/#Value","Destination":"#Control:FCDestination/#Value","StartDate":"#Control:FCStartDate/#Value","EndDate":"#Control:FCEndDate/#Value","SubActivity":"#Control:FCSubActivity/#Value"}}
+module.exports = {"_Type":"Action.Type.ODataService.UpdateEntity","ActionResult":{"_Name":"updateTravelRequestSrv"},"OnFailure":"/TravelApp/Actions/updateTravelDetailsErrorMsg.action","OnSuccess":"/TravelApp/Actions/CloseModalPage_Complete.action","Target":{"Service":"/TravelApp/Services/TravelApp.service","EntitySet":"TravelRequest","ReadLink":"{@odata.readLink}"},"Properties":{"ID":"{ID}","TravelType":"#Control:FCTravelType/#Value","Destination":"#Control:FCDestination/#Value","StartDate":"#Control:FCStartDate/#Value","EndDate":"#Control:FCEndDate/#Value","SubActivity":"#Control:FCSubActivity/#Value"}}
 
 /***/ }),
 
@@ -1906,6 +2070,16 @@ module.exports = {"Value":"1-800-677-7271","_Type":"String"}
 
 /***/ }),
 
+/***/ "./build.definitions/TravelApp/Services/TravelApp.service":
+/*!****************************************************************!*\
+  !*** ./build.definitions/TravelApp/Services/TravelApp.service ***!
+  \****************************************************************/
+/***/ ((module) => {
+
+module.exports = {"DestinationName":"TravelApp","OfflineEnabled":false,"SourceType":"Mobile"}
+
+/***/ }),
+
 /***/ "./build.definitions/TravelApp/Services/com_initium_hpcl.service":
 /*!***********************************************************************!*\
   !*** ./build.definitions/TravelApp/Services/com_initium_hpcl.service ***!
@@ -1913,6 +2087,16 @@ module.exports = {"Value":"1-800-677-7271","_Type":"String"}
 /***/ ((module) => {
 
 module.exports = {"DestinationName":"com.initium.hpcl","OfflineEnabled":false,"SourceType":"Mobile"}
+
+/***/ }),
+
+/***/ "./build.definitions/TravelApp/Services/document_information_extraction.service":
+/*!**************************************************************************************!*\
+  !*** ./build.definitions/TravelApp/Services/document_information_extraction.service ***!
+  \**************************************************************************************/
+/***/ ((module) => {
+
+module.exports = {"DestinationName":"document_information_extraction","OfflineEnabled":false,"SourceType":"Mobile","RestService":true}
 
 /***/ }),
 
@@ -1927,51 +2111,10 @@ module.exports = "1.1\n";
 
 /***/ }),
 
-/***/ "webpack/container/entry/bundle.js":
-/*!***********************!*\
-  !*** container entry ***!
-  \***********************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-var moduleMap = {
-	".": () => {
-		return Promise.resolve().then(() => (() => ((__webpack_require__(/*! ./build.definitions/application-index.js */ "./build.definitions/application-index.js")))));
-	}
-};
-var get = (module, getScope) => {
-	__webpack_require__.R = getScope;
-	getScope = (
-		__webpack_require__.o(moduleMap, module)
-			? moduleMap[module]()
-			: Promise.resolve().then(() => {
-				throw new Error('Module "' + module + '" does not exist in container.');
-			})
-	);
-	__webpack_require__.R = undefined;
-	return getScope;
-};
-var init = (shareScope, initScope) => {
-	if (!__webpack_require__.S) return;
-	var name = "default"
-	var oldScope = __webpack_require__.S[name];
-	if(oldScope && oldScope !== shareScope) throw new Error("Container initialization failed as it has already been initialized with a different share scope");
-	__webpack_require__.S[name] = shareScope;
-	return __webpack_require__.I(name, initScope);
-};
-
-// This exports getters to disallow modifications
-__webpack_require__.d(exports, {
-	get: () => (get),
-	init: () => (init)
-});
-
-/***/ }),
-
-/***/ "./build.definitions/TravelApp/Styles/Styles.light.json":
-/*!**************************************************************!*\
-  !*** ./build.definitions/TravelApp/Styles/Styles.light.json ***!
-  \**************************************************************/
+/***/ "./build.definitions/TravelApp/Styles/Styles.json":
+/*!********************************************************!*\
+  !*** ./build.definitions/TravelApp/Styles/Styles.json ***!
+  \********************************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -2027,12 +2170,6 @@ module.exports = JSON.parse('{"compilerOptions":{"module":"esnext","target":"es2
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = __webpack_module_cache__;
-/******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -2062,61 +2199,14 @@ module.exports = JSON.parse('{"compilerOptions":{"module":"esnext","target":"es2
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/sharing */
-/******/ 	(() => {
-/******/ 		__webpack_require__.S = {};
-/******/ 		var initPromises = {};
-/******/ 		var initTokens = {};
-/******/ 		__webpack_require__.I = (name, initScope) => {
-/******/ 			if(!initScope) initScope = [];
-/******/ 			// handling circular init calls
-/******/ 			var initToken = initTokens[name];
-/******/ 			if(!initToken) initToken = initTokens[name] = {};
-/******/ 			if(initScope.indexOf(initToken) >= 0) return;
-/******/ 			initScope.push(initToken);
-/******/ 			// only runs once
-/******/ 			if(initPromises[name]) return initPromises[name];
-/******/ 			// creates a new share scope if needed
-/******/ 			if(!__webpack_require__.o(__webpack_require__.S, name)) __webpack_require__.S[name] = {};
-/******/ 			// runs all init snippets from all modules reachable
-/******/ 			var scope = __webpack_require__.S[name];
-/******/ 			var warn = (msg) => {
-/******/ 				if (typeof console !== "undefined" && console.warn) console.warn(msg);
-/******/ 			};
-/******/ 			var uniqueName = undefined;
-/******/ 			var register = (name, version, factory, eager) => {
-/******/ 				var versions = scope[name] = scope[name] || {};
-/******/ 				var activeVersion = versions[version];
-/******/ 				if(!activeVersion || (!activeVersion.loaded && (!eager != !activeVersion.eager ? eager : uniqueName > activeVersion.from))) versions[version] = { get: factory, from: uniqueName, eager: !!eager };
-/******/ 			};
-/******/ 			var initExternal = (id) => {
-/******/ 				var handleError = (err) => (warn("Initialization of sharing external failed: " + err));
-/******/ 				try {
-/******/ 					var module = __webpack_require__(id);
-/******/ 					if(!module) return;
-/******/ 					var initFn = (module) => (module && module.init && module.init(__webpack_require__.S[name], initScope))
-/******/ 					if(module.then) return promises.push(module.then(initFn, handleError));
-/******/ 					var initResult = initFn(module);
-/******/ 					if(initResult && initResult.then) return promises.push(initResult['catch'](handleError));
-/******/ 				} catch(err) { handleError(err); }
-/******/ 			}
-/******/ 			var promises = [];
-/******/ 			switch(name) {
-/******/ 			}
-/******/ 			if(!promises.length) return initPromises[name] = 1;
-/******/ 			return initPromises[name] = Promise.all(promises).then(() => (initPromises[name] = 1));
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 /******/ 	
-/******/ 	// module cache are used so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	var __webpack_exports__ = __webpack_require__("webpack/container/entry/bundle.js");
-/******/ 	var __webpack_export_target__ = exports;
-/******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
-/******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./build.definitions/application-index.js");
 /******/ 	
+/******/ 	return __webpack_exports__;
 /******/ })()
 ;
+});

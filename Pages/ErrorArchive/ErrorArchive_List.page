@@ -7,7 +7,7 @@
 				{
 					"_Type": "Section.Type.ObjectTable",
 					"Target": {
-						"Service": "/TravelApp/Services/com_initium_hpcl.service",
+						"Service": "/TravelApp/Services/TravelApp.service",
 						"EntitySet": "ErrorArchive"
 					},
 					"_Name": "SectionObjectTable0",

@@ -21,20 +21,19 @@
 							{
 								"BindTo": "Headline",
 								"NumberOfLines": 1,
-								"Text": "{TripNumber}",
+								"Text": "{name}",
+								"TextAlignment": "Left"
+							},
+							{
+								"BindTo": "Footnote",
+								"NumberOfLines": 1,
+								"Text": "{category}",
 								"TextAlignment": "Left"
 							},
 							{
 								"BindTo": "Subheadline",
 								"NumberOfLines": 1,
-								"Text": "{TravelType}",
-								"TextAlignment": "Left"
-							},
-							{
-								"BindTo": "Status",
-								"LineBreakMode": "WordWrapping",
-								"NumberOfLines": 1,
-								"Text": "{Status}",
+								"Text": "{value}",
 								"TextAlignment": "Left"
 							}
 						],
@@ -45,15 +44,17 @@
 								0.1
 							]
 						},
-						"AccessoryType": "None",
-						"OnPress": "/TravelApp/Actions/NavToTravelrequestDetailsPage.action"
+						"AccessoryType": "None"
 					},
 					"_Type": "Section.Type.GridTable",
 					"Target": {
-						"Service": "/TravelApp/Services/TravelApp.service",
-						"EntitySet": "TravelRequest",
-						"ReadLink": "{@odata.readLink}",
-						"ServerSidePaging": true
+						"Service": "/TravelApp/Services/document_information_extraction.service",
+						"Path": "/TravelApp/Rules/AttachmentDynamicPath.js",
+						"OutputPath": "/extraction/headerFields",
+						"RequestProperties": {
+							"Method": "GET",
+							"FetchCSRF": true
+						}
 					},
 					"_Name": "SectionGridTable0",
 					"Visible": true,
@@ -61,8 +62,7 @@
 						"FooterVisible": false
 					},
 					"DataPaging": {
-						"ShowLoadingIndicator": true,
-						"LoadingIndicatorText": "Loading",
+						"ShowLoadingIndicator": false,
 						"PageSize": 50
 					}
 				}
@@ -70,21 +70,7 @@
 		}
 	],
 	"_Type": "Page",
-	"_Name": "travelRequest",
-	"Caption": "Travel Requests",
-	"PrefersLargeCaption": true,
-	"ActionBar": {
-		"Items": [
-			{
-				"_Name": "ActionBarItem0",
-				"Caption": "Add",
-				"SystemItem": "Add",
-				"Position": "Right",
-				"IsIconCircular": false,
-				"Visible": true,
-				"OnPress": "/TravelApp/Actions/NavtoCreateRequestPage.action"
-			}
-		],
-		"_Name": "ActionBar1"
-	}
+	"_Name": "AttachmentDetails",
+	"Caption": "AttachmentDetails",
+	"PrefersLargeCaption": true
 }

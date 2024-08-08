@@ -5,7 +5,7 @@
 	},
 	"OnSuccess": "/TravelApp/Actions/CloseModalPage_Complete.action",
 	"Target": {
-		"Service": "/TravelApp/Services/com_initium_hpcl.service",
+		"Service": "/TravelApp/Services/TravelApp.service",
 		"EntitySet": "BoardingPass"
 	},
 	"Properties": {
@@ -14,6 +14,7 @@
 		"flightTo": "#Control:FCFlightTo/#Value",
 		"seatNo": "#Control:FCSeatNo/#Value",
 		"boardingDate": "#Control:FCBoardingDate/#Value",
+		"attachmentId": "/TravelApp/Rules/createFlightDetails.js",
 		"req_ID": "{ID}"
 	}
 }

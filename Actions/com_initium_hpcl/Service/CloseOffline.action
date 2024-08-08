@@ -1,6 +1,6 @@
 {
     "_Type": "Action.Type.OfflineOData.Close",
-    "Service": "/TravelApp/Services/com_initium_hpcl.service",
+    "Service": "/TravelApp/Services/TravelApp.service",
     "Force": true,
     "ActionResult": {
         "_Name": "close"
